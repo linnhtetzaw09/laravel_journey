@@ -1,0 +1,156 @@
+=>Raw SQL Queries
+
+use Illuminate\Support\Facades\DB;
+
+=>Create
+	\DB::insert('INSERT INTO types(name) VALUE(?)',['food']);
+
+=Read
+	//Multi data
+	DB::select('SELECT * FROM types');
+
+	//Single data
+	DB::select('SELECT * FROM types WHERE id = ?',[1]);
+
+=Update
+	DB::update('UPDATE types SET name = ? WHERE id = ?',['Nonfood',1]);
+
+=Delete
+	DB:delete('DELETE FROM types WHERE id = ?',[1]);
+
+=Executing Any Statement
+	DB::statement('DROP TABLE IF EXISTS types');
+
+
+
+=>ii. Query Builder ***
+
+use Illuminate\Support\Facades\DB;
+
+=>create
+	//Multi Data
+	DB::table('types')->insert([
+		'name'=>'food',
+		'status'=>'active'
+	],
+	[
+		'name'=>'nonfood',
+		'status'=>'inactive'
+	]);
+
+	//Single Data
+	DB::table('types')->insert([
+		'name'=>'food',
+		'status'=>'active'
+	]);
+
+=>read
+
+=fetch all data
+	$types = DB::table('types')->get();   //querySelectorAll
+	foreach($types as $type){
+		echo $type->name;
+	}
+
+=fetch specific data by id
+	$types = DB::table('types')->where('id',1)->first(); 	//querySelector
+	echo $type->name;
+
+
+=fetch specific data by column
+	$types = DB::table('types')->select('name','status')->get();
+
+
+=fetch with condition
+	$types = DB::table('users')->where('age','>',18)->get();
+
+
+=fetch with order and limit
+	$types = DB::table('users')->orderBy('created_at','desc')->limit(10)->get();
+
+
+=>update
+
+	=Update Single Field Update
+	DB::table('types')->where('id',1)->update(['nane'=>'drink']);
+
+	=Update Multi Field Update
+	DB::table('types')->where('id',1)->update(['nane'=>'drink','status'=>'inactive']);
+
+	=Update Multi records
+	DB::table('types')->where('status','inactive')->update(['status'=>'active']);
+
+
+=>delete
+
+	=Delete Single record
+	DB::table('types')->where('id',1)->delete();
+
+	=Multi Single record
+	DB::table('types')->where('status','inactive')->delete();
+
+
+==> Useful Query Builder Methods
+
+	= pluck('column name') - fetch a single column of value
+		DB::table('types')->pluck('name');
+		DB::table('types')->pluck('value','key');
+
+
+	= count() - get the count of record
+		DB::table('types')->count();
+
+	= exists() - check if a record exists
+		DB::table('users')->where('email','lin@gmail.com')->exists();
+
+	= join() - table join 
+		DB::table('users')
+		->join('posts','users.id','=','posts.user_id')
+		->select('users.name','posts.title')->get();
+
+
+----------------------------------------------------------------------------------------
+
+=>iii. Laravel Method
+
+use App\Models\Type;
+
+=> Create
+
+		Method 1
+		$type = new Type();
+		$type->name = "food";
+		$type->status = "inactive";
+		$type->save();
+
+
+		Method 2
+		Type::create([
+			"name" => "food",
+			"status" => "active"
+    	]);
+
+=> Read
+	
+	= Get all datas
+		$type = Type(Model type)::all();
+
+	= fetch specific data by id
+
+		$type = Type::find(1);
+
+		$type = Type::findOrFail(1);
+
+=> Update
+	
+		$type = Type::findOrFail(1);
+		$type->name = "non-food";
+		$type->status = "active";
+		$type->save();
+
+=> Delete
+		
+		$type = Type::find(1);
+		$type->delete();
+
+------------------------------------------------

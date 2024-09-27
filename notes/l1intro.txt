@@ -1,0 +1,81 @@
+PHP Framework
+
+laravel features++++
+email
+qr code
+mapping
+cart
+opt
+
+mvc , crud
+pro +classic php + features
+
+
+=>Download laravel
+composer create-project laravel/laravel projectname
+
+------------------------------------------------------------------------------------------------------------
+
+what is mvc framework(model view controller)
+
+=Model
+It is working with database (select,insert,update,delete, ...) and communicate with controller.
+
+=View
+It is the part of app that represents the presentation of data HTML,CSS codes for end users.
+
+=controller
+It mediates between Models and Views and receive input from user, process the request (GET,POST,PUT,DELTE).
+
+
+------------------------------------------------------------------------------------------------------------
+
+=> Folder and File Structures
+
+app > Models 
+database > migrations
+
+resources > Views 
+
+
+app > HTTP > Controllers
+
+
+public > (for images / custom css / custom js)
+
+
+routes > web.php (or) routes > api.php
+
+.env
+
+------------------------------------------------------------------------------------------------------------
+
+=>Run project
+php artisan serve
+
+=>Stop project (503 error)
+php artisan down
+=Stop project (by redirect) php artisan down --redirect=/https://google.com
+
+=>Resume project
+php artisan up
+
+------------------------------------------------------------------------------------------------------------
+
+=>New Key generate
+
+php artisan key:generate
+
+------------------------------------------------------------------------------------------------------------
+
+php artisan route:clear
+php artisan route:cache
+php artisan config:clear
+php artisan config:cache
+
+php artisan optimize
+php artisan route:cache
+php artisan config:cache
+
+------------------------------------------------------------------------------------------------------------
+

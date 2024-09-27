@@ -1,0 +1,99 @@
+
+=>Create Model
+php artisan make:model Student 
+
+
+
+---------------------------------------------------------------------------
+
+database connect > create model > create migration > Mess Assignments > migrate
+
+---------------------------------------------------------------------------
+
+=>Inspection Model to Database Table
+php artisan model:show Student
+
+---------------------------------------------------------------------------
+
+Mess Assignments ( Model > Book )
+
+php artisan make:model Book
+
+protected $table = "books"
+protected $primary = "id";
+
+=>Customize Timestamps
+const CREATED_AT = 'created_date';
+const UPDATED_AT = 'updated_date';
+
+
+=>method 1
+
+protected $fillable = [
+    'title',
+    'status',
+    'copyright',
+    'download',
+    'created_time',
+    'updated_time'
+ ];
+
+
+ =>method 2
+
+protected $guarded = [];
+
+---------------------------------------------------------------------------
+
+=>Retrieving Data from model (Single / Multi)
+
+=>Multi
+
+$books = Book::all();
+return $books;
+
+foreach($books as $book){
+    echo "$book->title <br/> $book->copyright <hr/>";
+}
+
+---------
+
+//method 3
+$books = Book::where('invoiceid' or 'id' or Customize,5)->get();
+return $book;
+
+foreach($books as $book){
+    echo "$book->title <br/> $book->copyright <hr/>";
+}
+
+=>asc / desc 
+
+$books = Book::where('city',"yangon")->orderBy('id','asc')->get();
+return $book;
+
+$books = Book::where('city',"yangon")->orderBy('id','desc')->get();
+return $book;
+
+$books = Book::where('city',"yangon")->orderByDesc('id')->get();
+return $book;
+
+---------
+
+=>Single
+
+//method 1      Retrieving a data by primary key
+$book = Book::find(5);
+return $book;
+
+echo "$book->title <br/> $book->copyright <hr/>";
+
+---------
+    
+//method 2    Retrieving a data by primary key with error mode exception
+$book = Book::findOrFail(5);
+return $book;
+
+echo "$book->title <br/> $book->copyright <hr/>";
+
+---------------------------------------------------------------------------
+
