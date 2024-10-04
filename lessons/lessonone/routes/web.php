@@ -106,6 +106,8 @@ Route::get('/dashboards',[DashbordController::class,'index'])->name('dashboards.
 Route::get('/members',[MembersController::class,'index'])->name('members.index');
 
 
+//i. Raw SQL Queries
+
 
 Route::get('students/insert', function() {
     DB::insert('INSERT INTO students(name, phone) VALUES (?, ?)', ['Zaw Htet', '093909567']);
@@ -228,6 +230,7 @@ Route::get('staffs/delete',function(){
     
 });
 
+//iii. Laravel Method
 
 Route::get('articles/create', function () {
 
@@ -287,7 +290,7 @@ Route::get('articles/update', function () {
 
 Route::get('articles/delete', function () {
 
-    $article = Article::find(9);
+    $article = Article::findOrFail(15);
     $article->delete();
 
     return "Deleted Successfully";
@@ -308,7 +311,7 @@ Route::get('articles/aggregates', function () {
     // var_dump(collect($datas));
 
     // dd($datas);
-    // dd($datas,collect($datas));
+    dd($datas,collect($datas));
 
     // return collect($datas)->count();    //5
 
@@ -319,7 +322,7 @@ Route::get('articles/aggregates', function () {
 
 
     // return collect($datas)->min();    //{"price":1000}
-    // return collect($datas)->min(function($num){
+    // return collect($datas)->min(function($num){  c
     //     return $num['price'];       //1000
     // });
 
@@ -360,6 +363,54 @@ Route::get('articles/aggregates', function () {
     // $articles = Article::where('user_id',2)->sum('rating');
     // return $articles;       //5
 
+});
 
+
+// whereColumn(,)
+// whereColumn(,,)
+
+Route::get('articles/wherecolumn', function () {
+    // $articles = Article::whereColumn('id', 'user_id')->get();
+    // return $articles;
+
+    // $articles = Article::whereColumn('created_at','updated_at')->orderByDesc('id')->get();
+    // return $articles;
+
+    // $articles = Article::whereColumn('created_at', '<','updated_at')->get();
+    // return $articles;
+
+});
+
+
+// join(,)
+// join(,,)
+
+Route::get('articles/join', function () {
+    //=>innerjoin
+    // $articles = Article::join('users', 'articles.user_id', '=','users.id')->select('articles.title','users.name')->get();
+    // // return $articles;
+    // foreach($articles as $article){
+    //     echo "$article->title = $article->name <hr/>";
+    // }
+
+    // $articles = DB::table('articles')->join('users', 'articles.user_id', '=','users.id')->select('articles.title','users.name as owner')->get();
+    // // return $articles;
+    // foreach($articles as $article){
+    //     echo "$article->title = $article->owner <hr/>";
+    // }
+
+    //=>leftjoin
+    // $articles = Article::leftJoin('users', 'articles.user_id', '=','users.id')->select('articles.title as caption','users.name as owner')->get();
+    // // return $articles;
+    // foreach($articles as $article){
+    //     echo "$article->caption = $article->owner <hr/>";
+    // }
+
+    //=>rightjoin
+    // $articles = Article::rightJoin('users', 'articles.user_id', '=','users.id')->select('articles.title as caption','users.name as owner')->get();
+    // // return $articles;
+    // foreach($articles as $article){
+    //     echo "$article->owner = $article->caption <hr/>";
+    // }
 
 });
