@@ -229,3 +229,48 @@ public function down():void
 }
 
 ---------------------------------------------------------------------------
+
+=> Foregin Key Constraints
+
+Method 1
+
+$table->foreginID('author_id');
+
+//u can also specify a different column if the primary key is not id
+$table->foreginID('author_id')->constrained('authors','authorid');
+
+$table->foreginID('author_id')->constrained()->onDelete('cascade');
+$table->foreginID('author_id')->constrained()->onUpdate('cascade');     //Automatically assumes the table as authors
+$table->foreginID('author_id')->constrained('authors')->onUpdate('cascade')->onDelete('cascade');
+
+Method 2
+
+$table->foreign('author_id')->references('id')->on('authors')->onUpdate('cascade')->onDelete('cascade');
+
+
+Schema::create('authors', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+});
+
+Schema::create('types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+});
+
+Schema::create('books', function (Blueprint $table) {
+            $table->id();
+            $table->string('title')->unique();
+            $table->text('description');
+            $table->year('year');
+
+            $table->foreignId('author_id')->constrained('authors')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->unsignedBigInteger('type_id');
+            $table->foeign('type_id')->references('id')->on('types')->onUpdate('cascade')->onDelete('restrict');
+
+            $table->timestamps();
+
+});

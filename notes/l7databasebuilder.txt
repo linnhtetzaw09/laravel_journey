@@ -1,4 +1,4 @@
-=>Raw SQL Queries
+=>i. Raw SQL Queries
 
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 	DB:delete('DELETE FROM types WHERE id = ?',[1]);
 
 =Executing Any Statement
-	DB::statement('DROP TABLE IF EXISTS types');
+	DB::delete('DROP TABLE IF EXISTS types');
 
 
 
@@ -54,7 +54,7 @@ use Illuminate\Support\Facades\DB;
 
 =fetch specific data by id
 	$types = DB::table('types')->where('id',1)->first(); 	//querySelector
-	echo $type->name;
+	echo $types->name;
 
 
 =fetch specific data by column
@@ -86,7 +86,7 @@ use Illuminate\Support\Facades\DB;
 	=Delete Single record
 	DB::table('types')->where('id',1)->delete();
 
-	=Multi Single record
+	=Multi record
 	DB::table('types')->where('status','inactive')->delete();
 
 
