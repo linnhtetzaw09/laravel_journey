@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Management App</title>
+    <title>{{ config('app.name') }}</title>
     <!-- Fav icon -->
     <link rel="icon" href="{{ asset('assets/img/fav/favicon.png') }}" type="image/png" sizes="16x16">
 
@@ -24,7 +24,7 @@
 
     <!-- extra css -->
 
-    @yield('styles')
+    @yield('css')
 
 </head>
 <body class="">

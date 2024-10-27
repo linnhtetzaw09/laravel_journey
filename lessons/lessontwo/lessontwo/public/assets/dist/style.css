@@ -241,3 +241,9 @@ body.show-nav > .right-panels{
 
 /* end content area */
 
+
+/* Custom Table style */
+
+.table{
+    background-color: transparent!important;
+}

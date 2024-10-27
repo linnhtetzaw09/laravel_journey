@@ -57,6 +57,15 @@
 
 <!-- end right navbar  -->
 
+<!-- Start Modal Area -->
+
+ <!-- Start Quick Search Modal -->
+
+ 
+ <!-- End Quick Search Modal -->
+
+<!-- End Modal Area -->
+
 
 <!-- start modal area -->
 

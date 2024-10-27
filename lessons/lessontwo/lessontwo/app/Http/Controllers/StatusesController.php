@@ -15,7 +15,8 @@ class StatusesController extends Controller
      */
     public function index()
     {
-        return view('statuses.index');
+        $statuses = Status::all(); // Retrieve all statuses from the database
+        return view('statuses.index', compact('statuses')); // Pass the $statuses variable to the view
     }
 
     /**
@@ -32,13 +33,13 @@ class StatusesController extends Controller
     public function store(Request $request)
     {
 
-        $user = Auth::user();
-        $user_id = $user->id;
+        // $user = Auth::user();
+        // $user_id = $user->id;
 
         $status = new Status();
         $status->name = $request['name'];
         $status->slug =  Str::slug($request['name']);
-        $status->user_id =$user_id;
+        $status->user_id = 1;
 
         $status->save();
 

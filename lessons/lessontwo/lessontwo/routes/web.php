@@ -21,5 +21,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/dashboards', [DashboardController::class, 'index'])->name('dashboard');
-Route::resource('/statuses', StatusesController::class);
+Route::get('/statuses', [StatusesController::class, 'index'])->name('statuses.index');
+Route::post('/statuses', [StatusesController::class, 'store'])->name('statuses.store');
+
+
