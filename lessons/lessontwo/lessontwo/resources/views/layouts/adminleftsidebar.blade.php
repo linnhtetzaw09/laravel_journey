@@ -121,7 +121,7 @@
                                             <i class="fas fa-long-arrow-alt-right me-4"></i>Days</a></li>
                                         <li><a href="javascript:void(0);" class="nav-link text-white sidebarlinks">
                                             <i class="fas fa-long-arrow-alt-right me-4"></i>Categories</a></li>
-                                        <li><a href="javascript:void(0);" class="nav-link text-white sidebarlinks">
+                                        <li><a href="{{route('statuses.index')}}" class="nav-link text-white sidebarlinks">
                                             <i class="fas fa-long-arrow-alt-right me-4"></i>Gender</a></li>
                                         <li><a href="javascript:void(0);" class="nav-link text-white sidebarlinks">
                                             <i class="fas fa-long-arrow-alt-right me-4"></i>Payment Types</a></li>

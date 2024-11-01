@@ -74,12 +74,16 @@
                             <td>select</td>
                             <td>{{ ++$idx }}</td>
                             <td>{{ $status->name }}</td>
-                            <td>{{ $status->name_id }}</td>
-                            <td>{{ $status->created_at }}</td>
-                            <td>{{ $status->updated_at }}</td>
+                            <!-- <td>{{ $status->user['name'] }}</td> -->
+                            <td>{{ $status ['user']['name'] }}</td>
+                            <td>{{ $status->created_at->format('d M Y') }}</td>
+                            <td>{{ $status->updated_at->format('d M Y') }}</td>
                             <td>
                                 <a href="javascript:void(0);" class="text-info me-2"><i class="fas fa-pen"></i></a>
                                 <a href="javascript:void(0);" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                                <form action="">
+                                    
+                                </form>
                             </td>
                         </tr>
                     @endforeach

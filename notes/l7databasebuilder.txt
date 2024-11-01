@@ -166,6 +166,10 @@ composer update
 
 composer require laravel/breeze --dev
 php artisan breeze:install
+- choose Blade with Alpine 
+- choose dark mode support => no
+- choose PHPUnit
+
 php artisan migrate
 npm install
 npm run dev
