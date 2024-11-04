@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Status;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use NunoMaduro\Collision\Adapters\Phpunit\State;
 
-class StatusesController extends Controller
+class RolesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $statuses = Status::all(); // Retrieve all statuses from the database
-        return view('statuses.index', compact('statuses')); // Pass the $statuses variable to the view
+        $roles = Role::all(); // Retrieve all roles from the database
+        return view('roles.index', compact('roles')); // Pass the $roles variable to the view
     }
 
     /**
@@ -31,20 +30,26 @@ class StatusesController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+{
+    $user = Auth::user();
+    $user_id = $user->id;
 
-        $user = Auth::user();
-        $user_id = $user->id;
+    // Retrieve or set $status_id
+    $status_id = $request->input('status_id'); // Option A: from the form
+    // OR
+    // $status_id = 1; // Option B: default value
 
-        $status = new Status();
-        $status->name = $request['name'];
-        $status->slug =  Str::slug($request['name']);
-        $status->user_id = $user_id;
+    $role = new Role();
+    $role->name = $request['name'];
+    $role->slug = Str::slug($request['name']);
+    $role->status_id = $status_id; // Assign $status_id to the role
+    $role->user_id = $user_id;
 
-        $status->save();
+    $role->save();
 
-        return redirect(route('statuses.index'));
-    }
+    return redirect(route('statuses.index'));
+}
+
 
     /**
      * Display the specified resource.
@@ -70,15 +75,15 @@ class StatusesController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
         
-        $status = Status::findOrFail($id);
+        $role = Role::findOrFail($id);
 
-        $status->name = $request['name'];
-        $status->slug =  Str::slug($request['name']);
-        $status->user_id =$user_id;
+        $role->name = $request['name'];
+        $role->slug =  Str::slug($request['name']);
+        $role->user_id =$user_id;
 
-        $status->save();
+        $role->save();
 
-        return redirect(route('statuses.index'));
+        return redirect(route('roles.index'));
     }
 
     /**
@@ -86,12 +91,9 @@ class StatusesController extends Controller
      */
     public function destroy(string $id)
     {
-        $status = Status::findOrFail($id);
-        $status->delete();
+        $role = Role::findOrFail($id);
+        $role->delete();
 
         return redirect()->back();
-
     }
 }
-
-// php artisan make:controller StatusesController -r

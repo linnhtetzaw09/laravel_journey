@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Status;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
 
-class StatusesController extends Controller
+class TypesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $statuses = Status::all(); // Retrieve all statuses from the database
-        return view('statuses.index', compact('statuses')); // Pass the $statuses variable to the view
+        $types = Type::all(); // Retrieve all statuses from the database
+        $statuses = Status::whereIn('id',[3,4])->get();
+        return view('types.index', compact('types','statuses')); // Pass the $statuses variable to the view
     }
 
     /**
@@ -36,14 +38,15 @@ class StatusesController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
 
-        $status = new Status();
-        $status->name = $request['name'];
-        $status->slug =  Str::slug($request['name']);
-        $status->user_id = $user_id;
+        $type = new Type();
+        $type->name = $request['name'];
+        $type->slug =  Str::slug($request['name']);
+        $type->status_id = $request['status_id'];
+        $type->user_id = $user_id;
 
-        $status->save();
+        $type->save();
 
-        return redirect(route('statuses.index'));
+        return redirect(route('types.index'));
     }
 
     /**
@@ -70,15 +73,16 @@ class StatusesController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
         
-        $status = Status::findOrFail($id);
+        $type = Type::findOrFail($id);
 
-        $status->name = $request['name'];
-        $status->slug =  Str::slug($request['name']);
-        $status->user_id =$user_id;
+        $type->name = $request['name'];
+        $type->slug =  Str::slug($request['name']);
+        $type->status_id = $request['status_id'];
+        $type->user_id =$user_id;
 
-        $status->save();
+        $type->save();
 
-        return redirect(route('statuses.index'));
+        return redirect(route('types.index'));
     }
 
     /**
@@ -86,12 +90,10 @@ class StatusesController extends Controller
      */
     public function destroy(string $id)
     {
-        $status = Status::findOrFail($id);
-        $status->delete();
+        $type = Type::findOrFail($id);
+        $type->delete();
 
         return redirect()->back();
 
     }
 }
-
-// php artisan make:controller StatusesController -r

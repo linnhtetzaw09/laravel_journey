@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\StatusesController;
+use App\Http\Controllers\TypesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('statuses',StatusesController::class);
+    Route::resource('roles', RolesController::class);
+    Route::resource('types', TypesController::class);
+
 });
 
 

@@ -6,7 +6,7 @@
 
     <div class="container-fluid">
         <div class="col-md-12">
-            <form action="{{ route('statuses.store') }}" method="POST">
+            <form action="{{ route('roles.store') }}" method="POST">
             <!-- {{ csrf_field() }} -->
               @csrf
 
@@ -64,28 +64,26 @@
                     </th>
                     <th>No</th>
                     <th>Name</th>
+                    <th>Status</th>
                     <th>By</th>
                     <th>Created At</th>
                     <th>Updated At</th>
                 </thead>
                 <tbody>
-                    @foreach($statuses as $idx=>$status)
+                    @foreach($roles as $idx=>$role)
                         <tr>
-                            <td>
-                                <input type="checkbox" name="singlechecks" class="form-check-input singlechecks" value="{{$status->id}}" />
-                            </td>
+                            <td>select</td>
                             <td>{{ ++$idx }}</td>
-                            <td>{{ $status->name }}</td>
+                            <td>{{ $role->name }}</td>
                             <!-- <td>{{ $status->user['name'] }}</td> -->
-                            <td>{{ $status ['user']['name'] }}</td>
-                            <td>{{ $status->created_at->format('d M Y') }}</td>
-                            <td>{{ $status->updated_at->format('d M Y') }}</td>
+                            <td>{{ $role->user?->name ?? 'N/A' }}</td>
+                            <td>{{ $role->created_at->format('d M Y') }}</td>
+                            <td>{{ $role->updated_at->format('d M Y') }}</td>
                             <td>
                                 <a href="javascript:void(0);" class="text-info me-2"><i class="fas fa-pen"></i></a>
-                                <a href="javascript:void(0);" class="text-danger delete-btn" data-idx="{{$idx}}"><i class="fas fa-trash-alt"></i></a>
-                                <form id="formdelete-{{$idx}}" action="{{route('statuses.destroy', $status->id)}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
+                                <a href="javascript:void(0);" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                                <form action="">
+                                    
                                 </form>
                             </td>
                         </tr>
@@ -105,33 +103,4 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-        $(document).ready(function(){
-            // console.log("hi");
-
-            // Single Delete
-            $(".delete-btn").click(function(){
-                const getidx = $(this).data('idx');
-                // console.log(getidx);
-
-                if(confirm(`Are u sure to delete ${getidx}`)){
-                    $('#formdelete-'+getidx).submit();
-                    return true;
-                } else{
-                    return false;
-                }
-            });
-            // Single Delete
-
-            // Bulk Delete
-            $('#selectalls').click(function(){
-                $('.singlechecks').prop('checked',$(this).prop('checked'));
-            });
-            // Bulk Delete
-
-
-        });
-
-    </script>
 @endsection
