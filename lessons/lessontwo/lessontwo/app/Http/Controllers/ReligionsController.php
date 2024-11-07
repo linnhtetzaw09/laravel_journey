@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Status;
+use App\Models\Religion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use NunoMaduro\Collision\Adapters\Phpunit\State;
 
-class StatusesController extends Controller
+class ReligionsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $statuses = Status::all(); // Retrieve all statuses from the database
-        return view('statuses.index', compact('statuses')); // Pass the $statuses variable to the view
+        $religions = Religion::all(); // Retrieve all statuses from the database
+        return view('religions.index', compact('religions')); // Pass the $statuses variable to the view
     }
 
     /**
@@ -36,16 +35,15 @@ class StatusesController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
 
-        $status = new Status();
-        $status->name = $request['name'];
-        $status->slug =  Str::slug($request['name']);
-        $status->user_id = $user_id;
+        $religion = new Religion();
+        $religion->name = $request['name'];
+        $religion->slug =  Str::slug($request['name']);
+        $religion->user_id = $user_id;
 
-        $status->save();
+        $religion->save();
 
-        return redirect(route('statuses.index'));
+        return redirect(route('religions.index'));
     }
-
     /**
      * Display the specified resource.
      */
@@ -70,15 +68,15 @@ class StatusesController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
         
-        $status = Status::findOrFail($id);
+        $religion = Religion::findOrFail($id);
 
-        $status->name = $request['name'];
-        $status->slug =  Str::slug($request['name']);
-        $status->user_id =$user_id;
+        $religion->name = $request['name'];
+        $religion->slug =  Str::slug($request['name']);
+        $religion->user_id =$user_id;
 
-        $status->save();
+        $religion->save();
 
-        return redirect(route('statuses.index'));
+        return redirect(route('religions.index'));
     }
 
     /**
@@ -86,11 +84,9 @@ class StatusesController extends Controller
      */
     public function destroy(string $id)
     {
-        $status = Status::findOrFail($id);
-        $status->delete();
+        $religion = Religion::findOrFail($id);
+        $religion->delete();
 
         return redirect()->back();
     }
 }
-
-// php artisan make:controller StatusesController -r

@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Status;
+use App\Models\PaymentType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use NunoMaduro\Collision\Adapters\Phpunit\State;
 
-class StatusesController extends Controller
+class PaymentTypesController extends Controller
 {
-    /**
+   /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $statuses = Status::all(); // Retrieve all statuses from the database
-        return view('statuses.index', compact('statuses')); // Pass the $statuses variable to the view
+        $paymenttypes = PaymentType::all(); // Retrieve all statuses from the database
+        return view('paymenttypes.index', compact('paymenttypes')); // Pass the $statuses variable to the view
     }
 
     /**
@@ -36,16 +35,15 @@ class StatusesController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
 
-        $status = new Status();
-        $status->name = $request['name'];
-        $status->slug =  Str::slug($request['name']);
-        $status->user_id = $user_id;
+        $paymenttype = new PaymentType();
+        $paymenttype->name = $request['name'];
+        $paymenttype->slug =  Str::slug($request['name']);
+        $paymenttype->user_id = $user_id;
 
-        $status->save();
+        $paymenttype->save();
 
-        return redirect(route('statuses.index'));
+        return redirect(route('paymenttypes.index'));
     }
-
     /**
      * Display the specified resource.
      */
@@ -70,15 +68,15 @@ class StatusesController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
         
-        $status = Status::findOrFail($id);
+        $paymenttype = PaymentType::findOrFail($id);
 
-        $status->name = $request['name'];
-        $status->slug =  Str::slug($request['name']);
-        $status->user_id =$user_id;
+        $paymenttype->name = $request['name'];
+        $paymenttype->slug =  Str::slug($request['name']);
+        $paymenttype->user_id =$user_id;
 
-        $status->save();
+        $paymenttype->save();
 
-        return redirect(route('statuses.index'));
+        return redirect(route('paymenttypes.index'));
     }
 
     /**
@@ -86,11 +84,10 @@ class StatusesController extends Controller
      */
     public function destroy(string $id)
     {
-        $status = Status::findOrFail($id);
-        $status->delete();
+        $paymenttype = PaymentType::findOrFail($id);
+        $paymenttype->delete();
 
         return redirect()->back();
     }
-}
 
-// php artisan make:controller StatusesController -r
+}

@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Status;
+use App\Models\Day;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use NunoMaduro\Collision\Adapters\Phpunit\State;
 
-class StatusesController extends Controller
+class DaysController extends Controller
 {
-    /**
+   /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $statuses = Status::all(); // Retrieve all statuses from the database
-        return view('statuses.index', compact('statuses')); // Pass the $statuses variable to the view
+        $days = Day::all(); // Retrieve all statuses from the database
+        return view('days.index', compact('days')); // Pass the $statuses variable to the view
     }
 
     /**
@@ -36,16 +35,15 @@ class StatusesController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
 
-        $status = new Status();
-        $status->name = $request['name'];
-        $status->slug =  Str::slug($request['name']);
-        $status->user_id = $user_id;
+        $day = new Day();
+        $day->name = $request['name'];
+        $day->slug =  Str::slug($request['name']);
+        $day->user_id = $user_id;
 
-        $status->save();
+        $day->save();
 
-        return redirect(route('statuses.index'));
+        return redirect(route('days.index'));
     }
-
     /**
      * Display the specified resource.
      */
@@ -70,15 +68,15 @@ class StatusesController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
         
-        $status = Status::findOrFail($id);
+        $day = Day::findOrFail($id);
 
-        $status->name = $request['name'];
-        $status->slug =  Str::slug($request['name']);
-        $status->user_id =$user_id;
+        $day->name = $request['name'];
+        $day->slug =  Str::slug($request['name']);
+        $day->user_id =$user_id;
 
-        $status->save();
+        $day->save();
 
-        return redirect(route('statuses.index'));
+        return redirect(route('days.index'));
     }
 
     /**
@@ -86,11 +84,10 @@ class StatusesController extends Controller
      */
     public function destroy(string $id)
     {
-        $status = Status::findOrFail($id);
-        $status->delete();
+        $day = Day::findOrFail($id);
+        $day->delete();
 
         return redirect()->back();
     }
-}
 
-// php artisan make:controller StatusesController -r
+}
