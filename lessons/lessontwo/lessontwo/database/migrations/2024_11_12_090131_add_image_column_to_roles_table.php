@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('genders', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->string('slug');
-            $table->unsignedBigInteger('user_id');
-            $table->timestamps();
+        Schema::table('roles', function (Blueprint $table) {
+            //
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('genders');
+        Schema::table('roles', function (Blueprint $table) {
+            //
+        });
     }
 };

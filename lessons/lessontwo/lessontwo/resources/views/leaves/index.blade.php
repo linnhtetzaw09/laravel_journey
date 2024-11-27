@@ -6,7 +6,7 @@
     <div class="container-fluid">
         
         <div class="col-md-12">
-            <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm rounded-0">Create</a>
+            <a href="{{ route('leaves.create') }}" class="btn btn-primary btn-sm rounded-0">Create</a>
         </div>
 
         <hr>
@@ -51,23 +51,21 @@
                     <th>Updated At</th>
                 </thead>
                 <tbody>
-                    @foreach($roles as $idx => $role)
+                    @foreach($leaves as $idx => $leave)
                         <tr>
                             <td>
-                                <input type="checkbox" name="singlechecks" class="form-check-input singlechecks" value="">
+                                <input type="checkbox" name="singlechecks" class="form-check-input singlechecks" value="{{$leave->id}}">
                             </td>
-                            <td>{{ $idx + 1 }}</td>
-                            <td><img src="{{asset($role->image)}}" class="rounded-circle me-2" width="20" height="20" alt=""/><a href="{{route('roles.show',$role->id)}}"></a>{{ $role->name }}</td>
-                            <!-- <td>{{ $role->name }}</td> -->
-                            <td>{{ $role->status->name ?? 'N/A' }}</td>
-                            <td>{{ $role->user?->name ?? 'N/A' }}</td>
-                            <td>{{ $role->created_at->format('d M Y') }}</td>
-                            <td>{{ $role->updated_at->format('d M Y') }}</td>
+                            <td>{{ ++$idx }}</td>
+                            <td>{{ $leave->stage->name }}</td>
+                            <td>{{ $leave['user']['name'] }}</td>
+                            <td>{{ $leave->created_at->format('d M Y') }}</td>
+                            <td>{{ $leave->updated_at->format('d M Y') }}</td>
                             <td>
-                                <a href="{{ route('roles.edit', $role->id) }}" class="text-info me-2"><i class="fas fa-pen"></i></a>
+                                <a href="{{ route('leaves.edit', $leave->id) }}" class="text-info me-2"><i class="fas fa-pen"></i></a>
                                 <a href="javascript:void(0);" class="text-danger delete-btn" data-idx="{{ $idx }}"><i class="fas fa-trash-alt"></i></a>
 
-                                <form id="formdelete-{{ $idx }}" action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display: none;">
+                                <form id="formdelete-{{ $idx }}" action="{{ route('leaves.destroy', $leave->id) }}" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
